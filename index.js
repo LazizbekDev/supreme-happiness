@@ -11,7 +11,7 @@ bot.action('not_found', ctx => {
     ctx.answerCbQuery('Hali mavjud emas!')
 })
 
-bot.launch();
+// bot.launch();
 
 exports.handler = (event, context, callback) => {
     const tmp = JSON.parse(event.body);
