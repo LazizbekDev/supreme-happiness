@@ -6,10 +6,12 @@ const { faq } = require('./src/faq.js');
 
 config();
 const app = express();
+const TOKEN=process.env.TOKEN
+const PORT=process.env.PORT||5000
 
 app.use(express.json());
 
-const bot = new Telegraf(process.env.TOKEN);
+const bot = new Telegraf(TOKEN);
 
 help(bot)
 faq(bot)
@@ -25,8 +27,15 @@ app.get('/', (req,res) => {
     })
 })
 
+app.post('/', (req, res) => {
+    res.status(200).json({
+        status: "OK",
+        server: "ON"
+    })
+})
+
 // bot.launch();
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
     console.log('server running')
 })
