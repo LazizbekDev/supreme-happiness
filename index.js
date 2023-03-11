@@ -34,8 +34,17 @@ app.post('/', (req, res) => {
     })
 })
 
-// bot.launch();
-
-app.listen(PORT, () => {
-    console.log('server running')
-})
+if(process.env.NODE_ENV === "PRODUCTION"){
+    bot.launch({
+        webhook:{
+            domain: process.env.DOMAIN,// Your domain URL (where server code will be deployed)
+            port: PORT
+        }
+    }).then(() => {
+        console.info(`The bot ${bot.botInfo.username} is running on server`);
+    });
+} else { // if local use Long-polling
+    bot.launch().then(() => {
+        console.info(`The bot ${bot.botInfo.username} is running locally`);
+    });
+}
